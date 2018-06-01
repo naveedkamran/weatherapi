@@ -17,6 +17,8 @@ public class WeatherDetails {
     private String visibility;
     private GeoLocation coord;
 //    private Weather weather[];
+    private Main main;
+    private Sys sys;
 
     public WeatherDetails() {
 //        weather = new Weather[1];
@@ -24,7 +26,7 @@ public class WeatherDetails {
 
     @Override
     public String toString() {
-        return "WeatherDetails{" + "cod=" + getCod() + ", dt=" + getDt() + ", id=" + getId() + ", base=" + getBase() + ", name=" + getName() + ", visibility=" + getVisibility() + ", Coord=" + getCoord() + '}';
+        return "WeatherDetails{" + "cod=" + cod + ", dt=" + dt + ", id=" + id + ", base=" + base + ", name=" + name + ", visibility=" + visibility + ", coord=" + coord + ", main=" + main + ", sys=" + sys + '}';
     }
 
     /**
@@ -123,6 +125,34 @@ public class WeatherDetails {
      */
     public void setCoord(GeoLocation coord) {
         this.coord = coord;
+    }
+
+    /**
+     * @return the main
+     */
+    public Main getMain() {
+        return main;
+    }
+
+    /**
+     * @param main the main to set
+     */
+    public void setMain(Main main) {
+        this.main = main;
+    }
+
+    /**
+     * @return the sys
+     */
+    public Sys getSys() {
+        return sys;
+    }
+
+    /**
+     * @param sys the sys to set
+     */
+    public void setSys(Sys sys) {
+        this.sys = sys;
     }
 
 }
