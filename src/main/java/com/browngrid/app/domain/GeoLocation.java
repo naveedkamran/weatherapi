@@ -12,6 +12,14 @@ public class GeoLocation {
     private Double lon;
     private Double lat;
 
+    public GeoLocation() {
+    }
+
+    public GeoLocation(Double lon, Double lat) {
+        this.lon = lon;
+        this.lat = lat;
+    }
+
     @Override
     public String toString() {
         return "GeoLocation{" + "lon=" + lon + ", lat=" + lat + '}';
