@@ -1,6 +1,8 @@
 package com.browngrid.app.apputil;
 
+import com.browngrid.app.message.Receiver;
 import com.browngrid.app.repository.WeatherRepository;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +17,10 @@ public class ObjFactory {
     private AppUtil appUtil;
     @Autowired
     private WeatherRepository weatherRepository;
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+    @Autowired
+    private Receiver receiver;
 
     /**
      * @return the appUtil
@@ -42,5 +48,33 @@ public class ObjFactory {
      */
     public void setWeatherRepository(WeatherRepository weatherRepository) {
         this.weatherRepository = weatherRepository;
+    }
+
+    /**
+     * @return the rabbitTemplate
+     */
+    public RabbitTemplate getRabbitTemplate() {
+        return rabbitTemplate;
+    }
+
+    /**
+     * @param rabbitTemplate the rabbitTemplate to set
+     */
+    public void setRabbitTemplate(RabbitTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
+    }
+
+    /**
+     * @return the receiver
+     */
+    public Receiver getReceiver() {
+        return receiver;
+    }
+
+    /**
+     * @param receiver the receiver to set
+     */
+    public void setReceiver(Receiver receiver) {
+        this.receiver = receiver;
     }
 }

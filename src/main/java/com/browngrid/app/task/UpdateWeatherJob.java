@@ -23,7 +23,6 @@ public class UpdateWeatherJob implements Runnable, ApplicationContextAware {
     @Autowired
     private ObjFactory objFactory;
 
-    //@Scheduled(fixedRate = 1000 * 60 * 1, initialDelay = 1000 * 60 * 1)
     @Scheduled(cron = "0 0/3 * * * ?")
     @Override
     public void run() {
