@@ -1,4 +1,4 @@
-package com.browngrid.app.domain;
+package com.browngrid.app.domain.weather;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

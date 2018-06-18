@@ -1,6 +1,6 @@
 package com.browngrid.app.repository;
 
-import com.browngrid.app.domain.WeatherDetails;
+import com.browngrid.app.domain.weather.WeatherDetails;
 import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 

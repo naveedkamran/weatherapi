@@ -1,6 +1,7 @@
-package com.browngrid.app.domain;
+package com.browngrid.app.domain.weather;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.List;
 
 /**
  *
@@ -17,6 +18,7 @@ public class WeatherDetails {
     private String visibility;
     private GeoLocation coord;
 //    private Weather weather[];
+    private List<Weather> weather;
     private Main main;
     private Sys sys;
 

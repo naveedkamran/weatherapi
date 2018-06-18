@@ -13,8 +13,8 @@ public class Receiver {
     private CountDownLatch countDownLatch = new CountDownLatch(1);
 
     public void receiveMessage(String message) {
-        System.out.println("Received Message: " + message);
-        countDownLatch.countDown();
+//        System.out.println("Received Message: " + message);
+//        countDownLatch.countDown();
     }
 
     public CountDownLatch getLatch() {

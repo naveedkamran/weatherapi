@@ -1,8 +1,8 @@
 package com.browngrid.app.task;
 
 import com.browngrid.app.apputil.ObjFactory;
-import com.browngrid.app.domain.GeoLocation;
-import com.browngrid.app.domain.WeatherDetails;
+import com.browngrid.app.domain.weather.GeoLocation;
+import com.browngrid.app.domain.weather.WeatherDetails;
 import com.datenc.commons.date.DateUtil;
 import java.util.Calendar;
 import org.springframework.beans.BeansException;
