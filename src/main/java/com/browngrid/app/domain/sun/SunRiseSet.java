@@ -10,24 +10,24 @@ import java.util.Date;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SunRiseSet {
 
-    private Double latitude;
     private Double longitude;
+    private Double latitude;
     private Date sunrise;
     private Date sunset;
 
     public SunRiseSet() {
     }
 
-    public SunRiseSet(Double latitude, Double longitude, Date sunrise, Date sunset) {
-        this.latitude = latitude;
+    public SunRiseSet(Double longitude, Double latitude, Date sunrise, Date sunset) {
         this.longitude = longitude;
+        this.latitude = latitude;
         this.sunrise = sunrise;
         this.sunset = sunset;
     }
 
     @Override
     public String toString() {
-        return "SunriseSunset{" + "latitude=" + latitude + ", longitude=" + longitude + ", sunrise=" + sunrise + ", sunset=" + sunset + '}';
+        return "SunRiseSet{" + "longitude=" + longitude + ", latitude=" + latitude + ", sunrise=" + sunrise + ", sunset=" + sunset + '}';
     }
 
     /**

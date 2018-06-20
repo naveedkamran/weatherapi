@@ -1,6 +1,7 @@
 package com.browngrid.app.apputil;
 
 import com.browngrid.app.message.Receiver;
+import com.browngrid.app.repository.DayInfoRepository;
 import com.browngrid.app.repository.WeatherRepository;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ public class ObjFactory {
 
     @Autowired
     private AppUtil appUtil;
+    @Autowired
+    private DayInfoRepository dayInfoRepository;
     @Autowired
     private WeatherRepository weatherRepository;
     @Autowired
@@ -65,6 +68,20 @@ public class ObjFactory {
     }
 
     /**
+     * @return the dayInfoRepository
+     */
+    public DayInfoRepository getDayInfoRepository() {
+        return dayInfoRepository;
+    }
+
+    /**
+     * @param dayInfoRepository the dayInfoRepository to set
+     */
+    public void setDayInfoRepository(DayInfoRepository dayInfoRepository) {
+        this.dayInfoRepository = dayInfoRepository;
+    }
+
+    /**
      * @return the receiver
      */
     public Receiver getReceiver() {
@@ -77,4 +94,5 @@ public class ObjFactory {
     public void setReceiver(Receiver receiver) {
         this.receiver = receiver;
     }
+
 }
