@@ -7,22 +7,38 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * @author Naveed Kamran
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GeoLocation {
+public class SunInfo {
 
+    private String info;
     private Double longitude;
     private Double latitude;
 
-    public GeoLocation() {
+    public SunInfo() {
     }
 
-    public GeoLocation(Double longitude, Double latitude) {
+    public SunInfo(String info, Double longitude, Double latitude) {
+        this.info = info;
         this.longitude = longitude;
         this.latitude = latitude;
     }
 
     @Override
     public String toString() {
-        return "GeoLocation{" + "lon=" + getLongitude() + ", lat=" + getLatitude() + '}';
+        return "SunInfo{" + "info=" + getInfo() + ", lon=" + getLongitude() + ", lat=" + getLatitude() + '}';
+    }
+
+    /**
+     * @return the info
+     */
+    public String getInfo() {
+        return info;
+    }
+
+    /**
+     * @param info the info to set
+     */
+    public void setInfo(String info) {
+        this.info = info;
     }
 
     /**
