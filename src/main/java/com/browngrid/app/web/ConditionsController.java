@@ -2,6 +2,8 @@ package com.browngrid.app.web;
 
 import ca.rmen.sunrisesunset.SunriseSunset;
 import com.browngrid.app.apputil.ObjFactory;
+import com.browngrid.app.domain.sun.SunRiseSet;
+import com.google.gson.Gson;
 import java.util.Calendar;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,19 @@ public class ConditionsController {
 
     @Autowired
     private ObjFactory objFactory;
+
+    @GetMapping("/sunrise_sunset")
+    @ResponseBody
+    public String reload_weather(
+            @RequestParam(value = "latitude", required = true) Double latitude,
+            @RequestParam(value = "longitude", required = true) Double longitude) {
+        Calendar[] sunriseSunset = SunriseSunset.getSunriseSunset(Calendar.getInstance(), latitude, longitude);
+
+        System.out.println("Sunrise at: " + sunriseSunset[0].getTime());
+        System.out.println("Sunset at: " + sunriseSunset[1].getTime());
+
+        return new Gson().toJson(new SunRiseSet(latitude, longitude, sunriseSunset[0].getTime(), sunriseSunset[1].getTime()));
+    }
 
     @GetMapping("/check_condition")
     @ResponseBody
