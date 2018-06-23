@@ -3,6 +3,7 @@ package com.browngrid.app.apputil;
 import com.browngrid.app.message.Receiver;
 import com.browngrid.app.repository.DayInfoRepository;
 import com.browngrid.app.repository.WeatherRepository;
+import com.browngrid.app.repository.WeatherSubsRepository;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,13 +16,16 @@ import org.springframework.stereotype.Component;
 public class ObjFactory {
 
     @Autowired
+    private RabbitTemplate rabbitTemplate;
+    ////////////////////////////////////////////////////////////////////////////
+    @Autowired
     private AppUtil appUtil;
     @Autowired
     private DayInfoRepository dayInfoRepository;
     @Autowired
     private WeatherRepository weatherRepository;
     @Autowired
-    private RabbitTemplate rabbitTemplate;
+    private WeatherSubsRepository weatherSubsRepository;
     @Autowired
     private Receiver receiver;
 
@@ -51,6 +55,20 @@ public class ObjFactory {
      */
     public void setWeatherRepository(WeatherRepository weatherRepository) {
         this.weatherRepository = weatherRepository;
+    }
+
+    /**
+     * @return the weatherSubsRepository
+     */
+    public WeatherSubsRepository getWeatherSubsRepository() {
+        return weatherSubsRepository;
+    }
+
+    /**
+     * @param weatherSubsRepository the weatherSubsRepository to set
+     */
+    public void setWeatherSubsRepository(WeatherSubsRepository weatherSubsRepository) {
+        this.weatherSubsRepository = weatherSubsRepository;
     }
 
     /**

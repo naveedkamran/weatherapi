@@ -1,6 +1,7 @@
 package com.browngrid.app.domain.weather;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,22 +18,19 @@ public class WeatherDetails {
     private String name;
     private String visibility;
     private GeoLocation coord;
-//    private List<Weather> weather = new ArrayList();
-//    private Weather weathers[] = new Weather[1];
     private List weather;
-//    private String weather;
     private Main main;
     private Sys sys;
     private Wind wind;
     private Cloud clouds;
+    private Date dateCreated;
 
     public WeatherDetails() {
-//        weather = new Weather[1];
     }
 
     @Override
     public String toString() {
-        return "WeatherDetails{" + "cod=" + cod + ", dt=" + dt + ", id=" + id + ", base=" + base + ", name=" + name + ", visibility=" + visibility + ", coord=" + coord + ", main=" + main + ", sys=" + sys + '}';
+        return "WeatherDetails{" + "cod=" + cod + ", dt=" + dt + ", id=" + id + ", base=" + base + ", name=" + name + ", visibility=" + visibility + ", coord=" + coord + ", weather=" + weather + ", main=" + main + ", sys=" + sys + ", wind=" + wind + ", clouds=" + clouds + ", dateCreated=" + dateCreated + '}';
     }
 
     /**
@@ -134,6 +132,20 @@ public class WeatherDetails {
     }
 
     /**
+     * @return the weather
+     */
+    public List getWeather() {
+        return weather;
+    }
+
+    /**
+     * @param weather the weather to set
+     */
+    public void setWeather(List weather) {
+        this.weather = weather;
+    }
+
+    /**
      * @return the main
      */
     public Main getMain() {
@@ -162,19 +174,6 @@ public class WeatherDetails {
     }
 
     /**
-     * @return the weather
-     */
-//    public List<Weather> getWeather() {
-//        return weather;
-//    }
-//
-//    /**
-//     * @param weather the weather to set
-//     */
-//    public void setWeather(List<Weather> weather) {
-//        this.weather = weather;
-//    }
-    /**
      * @return the wind
      */
     public Wind getWind() {
@@ -202,30 +201,18 @@ public class WeatherDetails {
         this.clouds = clouds;
     }
 
-//    /**
-//     * @return the weather
-//     */
-//    public String getWeather() {
-//        return weather;
-//    }
-//
-//    /**
-//     * @param weather the weather to set
-//     */
-//    public void setWeather(String weather) {
-//        this.weather = weather;
-//    }
     /**
-     * @return the weather
+     * @return the dateCreated
      */
-    public List getWeather() {
-        return weather;
+    public Date getDateCreated() {
+        return dateCreated;
     }
 
     /**
-     * @param weather the weather to set
+     * @param dateCreated the dateCreated to set
      */
-    public void setWeather(List weather) {
-        this.weather = weather;
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
     }
+
 }
