@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface DayInfoRepository extends MongoRepository<SunInfo, String> {
 
-    public SunInfo find(Double longitude, Double latitude);
+    public List<SunInfo> findByLongitudeAndLatitude(Double longitude, Double latitude);
 
     public List<SunInfo> findAll();
 }

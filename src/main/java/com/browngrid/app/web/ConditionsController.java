@@ -2,15 +2,18 @@ package com.browngrid.app.web;
 
 import ca.rmen.sunrisesunset.SunriseSunset;
 import com.browngrid.app.apputil.ObjFactory;
+import com.browngrid.app.domain.sun.SunRiseSet;
+import com.google.gson.Gson;
 import java.util.Calendar;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ConditionsController {
@@ -18,9 +21,20 @@ public class ConditionsController {
     @Autowired
     private ObjFactory objFactory;
 
-    @GetMapping("/check_condition")
-    @ResponseBody
-    public ResponseEntity weather(
+    @RequestMapping(name = "/sunrise_sunset", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity sunrise_sunset(
+            @RequestParam(value = "latitude", required = true) Double latitude,
+            @RequestParam(value = "longitude", required = true) Double longitude) {
+        Calendar[] sunriseSunset = SunriseSunset.getSunriseSunset(Calendar.getInstance(), latitude, longitude);
+
+        System.out.println("Sunrise at: " + sunriseSunset[0].getTime());
+        System.out.println("Sunset at: " + sunriseSunset[1].getTime());
+
+        return new ResponseEntity(new Gson().toJson(new SunRiseSet(latitude, longitude, sunriseSunset[0].getTime(), sunriseSunset[1].getTime())), HttpStatus.OK);
+    }
+
+    @RequestMapping(name = "/check_condition", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity check_condition(
             @RequestParam(value = "latitude", required = true) Double latitude,
             @RequestParam(value = "longitude", required = true) Double longitude,
             @RequestParam(value = "conditions", required = true) String conditions) {

@@ -4,7 +4,7 @@ import com.browngrid.app.apputil.ObjFactory;
 import com.browngrid.app.domain.weather.GeoLocation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -18,7 +18,7 @@ public class HelpController {
         return "<a href=\"" + baseUrl + url + "\">" + text + "</a>";
     }
 
-    public String getGeoLocation(GeoLocation gl, String urlTitle) {
+    public String check_condition(GeoLocation gl, String urlTitle) {
         StringBuilder help = new StringBuilder();
 
         help.append("<br/>").append(getLink("/check_condition?latitude=" + gl.getLatitude() + "&longitude=" + gl.getLongitude() + "&conditions=isday", "Check if its day at " + urlTitle));
@@ -27,7 +27,15 @@ public class HelpController {
         return help.toString();
     }
 
-    @GetMapping("/help")
+    public String weather(GeoLocation gl, String urlTitle) {
+        StringBuilder help = new StringBuilder();
+
+        help.append("<br/>").append(getLink("/weather?latitude=" + gl.getLatitude() + "&longitude=" + gl.getLongitude(), "Weather in " + urlTitle));
+
+        return help.toString();
+    }
+
+    @RequestMapping(name = "/help")
     @ResponseBody
     public String help() {
         //Country	Pakistan Latitude	33.738045 Longitude	73.084488
@@ -35,9 +43,14 @@ public class HelpController {
         GeoLocation glBerlin = new GeoLocation(52.5200, 13.4050);
 
         StringBuilder help = new StringBuilder();
-        help.append(getGeoLocation(glIslamabad, "Islamabad"));
+        help.append(check_condition(glIslamabad, "Islamabad"));
         help.append("<br/>");
-        help.append(getGeoLocation(glBerlin, "Berlin"));
+        help.append(check_condition(glBerlin, "Berlin"));
+        help.append("<br/>");
+        help.append("<br/>");
+        help.append(weather(glIslamabad, "Islamabad"));
+        help.append("<br/>");
+        help.append(weather(glBerlin, "Berlin"));
 
         return help.toString();
     }
