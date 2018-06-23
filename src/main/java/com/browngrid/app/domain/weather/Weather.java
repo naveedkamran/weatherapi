@@ -14,6 +14,9 @@ public class Weather {
     private String description;
     private String icon;
 
+    public Weather() {
+    }
+
     public Weather(Integer id, String main, String description, String icon) {
         this.id = id;
         this.main = main;

@@ -19,16 +19,16 @@ public class AppUtil {
 
     public WeatherDetails getWeather(GeoLocation location) {
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://api.openweathermap.org/data/2.5/weather?lat=" + location.getLatitude()
-                + "&lon=" + location.getLongitude() + "&appid=" + appId;
+        String url = "http://api.openweathermap.org/data/2.5/weather?lat=" + location.getLat()
+                + "&lon=" + location.getLon() + "&appid=" + appId;
         System.out.println("Calling webservice " + url);
         return restTemplate.getForObject(url, WeatherDetails.class);
     }
 
-    public SunRiseSet getSunriseSunset(Double longitude, Double latitude) {
-        Calendar[] sunriseSunset = SunriseSunset.getSunriseSunset(Calendar.getInstance(), latitude, longitude);
+    public SunRiseSet getSunriseSunset(Double lon, Double lat) {
+        Calendar[] sunriseSunset = SunriseSunset.getSunriseSunset(Calendar.getInstance(), lat, lon);
 
-        return new SunRiseSet(longitude, latitude, sunriseSunset[0].getTime(), sunriseSunset[1].getTime());
+        return new SunRiseSet(lon, lat, sunriseSunset[0].getTime(), sunriseSunset[1].getTime());
     }
 
 }

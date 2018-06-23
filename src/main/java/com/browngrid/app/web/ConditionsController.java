@@ -21,7 +21,7 @@ public class ConditionsController {
     @Autowired
     private ObjFactory objFactory;
 
-    @RequestMapping(name = "/sunrise_sunset", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping( value = "/sunrise_sunset", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity sunrise_sunset(
             @RequestParam(value = "latitude", required = true) Double latitude,
             @RequestParam(value = "longitude", required = true) Double longitude) {
@@ -33,7 +33,7 @@ public class ConditionsController {
         return new ResponseEntity(new Gson().toJson(new SunRiseSet(latitude, longitude, sunriseSunset[0].getTime(), sunriseSunset[1].getTime())), HttpStatus.OK);
     }
 
-    @RequestMapping(name = "/check_condition", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/check_condition", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity check_condition(
             @RequestParam(value = "latitude", required = true) Double latitude,
             @RequestParam(value = "longitude", required = true) Double longitude,

@@ -17,9 +17,14 @@ public class WeatherDetails {
     private String name;
     private String visibility;
     private GeoLocation coord;
-    private List<Weather> weather;
+//    private List<Weather> weather = new ArrayList();
+//    private Weather weathers[] = new Weather[1];
+    private List weather;
+//    private String weather;
     private Main main;
     private Sys sys;
+    private Wind wind;
+    private Cloud clouds;
 
     public WeatherDetails() {
 //        weather = new Weather[1];
@@ -156,4 +161,71 @@ public class WeatherDetails {
         this.sys = sys;
     }
 
+    /**
+     * @return the weather
+     */
+//    public List<Weather> getWeather() {
+//        return weather;
+//    }
+//
+//    /**
+//     * @param weather the weather to set
+//     */
+//    public void setWeather(List<Weather> weather) {
+//        this.weather = weather;
+//    }
+    /**
+     * @return the wind
+     */
+    public Wind getWind() {
+        return wind;
+    }
+
+    /**
+     * @param wind the wind to set
+     */
+    public void setWind(Wind wind) {
+        this.wind = wind;
+    }
+
+    /**
+     * @return the clouds
+     */
+    public Cloud getClouds() {
+        return clouds;
+    }
+
+    /**
+     * @param clouds the clouds to set
+     */
+    public void setClouds(Cloud clouds) {
+        this.clouds = clouds;
+    }
+
+//    /**
+//     * @return the weather
+//     */
+//    public String getWeather() {
+//        return weather;
+//    }
+//
+//    /**
+//     * @param weather the weather to set
+//     */
+//    public void setWeather(String weather) {
+//        this.weather = weather;
+//    }
+    /**
+     * @return the weather
+     */
+    public List getWeather() {
+        return weather;
+    }
+
+    /**
+     * @param weather the weather to set
+     */
+    public void setWeather(List weather) {
+        this.weather = weather;
+    }
 }

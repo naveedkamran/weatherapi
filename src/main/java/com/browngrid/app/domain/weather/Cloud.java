@@ -11,6 +11,9 @@ public class Cloud {
 
     private Integer all;
 
+    public Cloud() {
+    }
+
     public Cloud(Integer all) {
         this.all = all;
     }
