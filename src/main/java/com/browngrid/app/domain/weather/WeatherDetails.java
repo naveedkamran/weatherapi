@@ -17,7 +17,6 @@ public class WeatherDetails {
     private String name;
     private String visibility;
     private GeoLocation coord;
-//    private Weather weather[];
     private List<Weather> weather;
     private Main main;
     private Sys sys;

@@ -8,8 +8,9 @@ import com.datenc.commons.ui.AppMessage;
 import com.google.gson.Gson;
 import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -19,7 +20,7 @@ public class WeatherController {
     @Autowired
     private ObjFactory objFactory;
 
-    @GetMapping("/weather")
+    @RequestMapping(name = "/weather", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public String weather(
             @RequestParam(value = "latitude", required = true) Double latitude,
@@ -30,7 +31,7 @@ public class WeatherController {
         return new Gson().toJson(weatherDetails);
     }
 
-    @GetMapping("/reload_weather")
+    @RequestMapping(name = "/reload_weather", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public String reload_weather() {
         try {
