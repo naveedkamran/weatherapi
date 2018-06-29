@@ -94,11 +94,11 @@ public class ConditionsController {
         try {
             //weatherDetails = objFactory.getAppUtil().getWeather(new GeoLocation(location));
 
-            if (objFactory.getAppUtil().checkCondition(weatherDetails, conditions)) {
-                return new ResponseEntity("Executed", HttpStatus.OK);
-            } else {
-                return new ResponseEntity("Executed", HttpStatus.OK);
-            }
+//            if (objFactory.getAppUtil().checkCondition(weatherDetails, conditions)) {
+            return new ResponseEntity("Executed", HttpStatus.OK);
+//            } else {
+//                return new ResponseEntity("Executed", HttpStatus.OK);
+//            }
         } catch (Exception ex) {
             return new ResponseEntity(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
@@ -129,6 +129,7 @@ public class ConditionsController {
                 output.append(data).append("\n");
             }
 
+            objFactory.getConditionUtil().checkCondition(conditionsMap, "main.temp < 20 in berlin");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

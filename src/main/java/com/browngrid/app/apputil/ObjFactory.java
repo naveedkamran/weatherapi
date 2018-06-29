@@ -17,6 +17,8 @@ public class ObjFactory {
     @Autowired
     private AppUtil appUtil;
     @Autowired
+    private ConditionUtil conditionUtil;
+    @Autowired
     private DayInfoRepository dayInfoRepository;
     @Autowired
     private WeatherRepository weatherRepository;
@@ -93,6 +95,20 @@ public class ObjFactory {
      */
     public void setReceiver(Receiver receiver) {
         this.receiver = receiver;
+    }
+
+    /**
+     * @return the conditionUtil
+     */
+    public ConditionUtil getConditionUtil() {
+        return conditionUtil;
+    }
+
+    /**
+     * @param conditionUtil the conditionUtil to set
+     */
+    public void setConditionUtil(ConditionUtil conditionUtil) {
+        this.conditionUtil = conditionUtil;
     }
 
 }
