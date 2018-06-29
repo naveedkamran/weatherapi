@@ -18,6 +18,7 @@ public class HelpController {
         return "<a href=\"" + baseUrl + url + "\">" + text + "</a>";
     }
 
+
     public String check_condition_sun(GeoLocation gl, String urlTitle) {
         StringBuilder help = new StringBuilder();
 
@@ -32,6 +33,16 @@ public class HelpController {
 
         help.append("<br/>").append(getLink("/check_condition/weather?latitude=" + gl.getLatitude() + "&longitude=" + gl.getLongitude() + "&conditions=isday", "Check if its day at " + urlTitle));
         help.append("<br/>").append(getLink("/check_condition/weather?latitude=" + gl.getLatitude() + "&longitude=" + gl.getLongitude() + "&conditions=isnight", "Check if its night at " + urlTitle));
+    private String getExternalLink(String url, String text) {
+        return "<a href=\"" + url + "\">" + text + "</a>";
+    }
+
+    public String check_condition(GeoLocation gl, String urlTitle) {
+        StringBuilder help = new StringBuilder();
+
+        help.append("<br/>").append(getLink("/check_condition/" + gl.getLat() + "/" + gl.getLon() + "/isday", "Check if its day at " + urlTitle));
+        help.append("<br/>").append(getLink("/check_condition/" + gl.getLat() + "/" + gl.getLon() + "/isnight", "Check if its night at " + urlTitle));
+ 
 
         return help.toString();
     }
@@ -39,19 +50,28 @@ public class HelpController {
     public String weather(GeoLocation gl, String urlTitle) {
         StringBuilder help = new StringBuilder();
 
-        help.append("<br/>").append(getLink("/weather?latitude=" + gl.getLatitude() + "&longitude=" + gl.getLongitude(), "Weather in " + urlTitle));
+        help.append("<br/>").append(getLink("/weather/" + gl.getLon() + "/" + gl.getLat(), "Weather in " + urlTitle));
 
         return help.toString();
     }
 
-    @RequestMapping(name = "/help")
+    public String weather(String location, String urlTitle) {
+        StringBuilder help = new StringBuilder();
+
+        help.append("<br/>").append(getLink("/weather/" + location, "Weather in " + urlTitle + " using location "));
+
+        return help.toString();
+    }
+
+    @RequestMapping(value = "/help")
     @ResponseBody
     public String help() {
-        //Country	Pakistan Latitude	33.738045 Longitude	73.084488
+        //Country	Pakistan Lat	33.738045 Long	73.084488
         GeoLocation glIslamabad = new GeoLocation(73.0479, 33.6844);
         GeoLocation glBerlin = new GeoLocation(52.5200, 13.4050);
 
         StringBuilder help = new StringBuilder();
+ 
         help.append(check_condition_sun(glIslamabad, "Islamabad"));
         help.append("<br/>");
         help.append(check_condition_sun(glBerlin, "Berlin"));
@@ -60,11 +80,28 @@ public class HelpController {
         help.append(check_condition_weather(glIslamabad, "Islamabad"));
         help.append("<br/>");
         help.append(check_condition_weather(glBerlin, "Berlin"));
-        help.append("<br/>");
-        help.append("<br/>");
+ 
         help.append(weather(glIslamabad, "Islamabad"));
         help.append("<br/>");
         help.append(weather(glBerlin, "Berlin"));
+ 
+        help.append("<br/>");
+        help.append(weather("islamabad", "Islamabad"));
+        help.append("<br/>");
+        help.append(weather("berlin", "Berlin"));
+        help.append("<br/>");
+        help.append(weather("munich", "Munich"));
+        help.append("<br/>");
+        help.append("<br/>");
+
+        help.append(getExternalLink("http://api.openweathermap.org/data/2.5/weather?lat=52.52&lon=13.405&appid=cba2e64c1002d6ef325138a66104b790", "From OpenWeather API"));
+        help.append("<br/>");
+        help.append(getExternalLink("http://localhost:8080/weather/13.405/52.52", "From our API"));
+        help.append("<br/>");
+        help.append("<br/>");
+        help.append(check_condition(glIslamabad, "Islamabad"));
+        help.append("<br/>");
+        help.append(check_condition(glBerlin, "Berlin"));
 
         return help.toString();
     }

@@ -1,10 +1,13 @@
 package com.browngrid.app.task;
 
+import com.browngrid.app.Config;
 import com.browngrid.app.apputil.ObjFactory;
 import com.browngrid.app.domain.weather.GeoLocation;
 import com.browngrid.app.domain.weather.WeatherDetails;
 import com.datenc.commons.date.DateUtil;
+import com.google.gson.Gson;
 import java.util.Calendar;
+import java.util.List;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -23,17 +26,19 @@ public class UpdateWeatherJob implements Runnable, ApplicationContextAware {
     @Autowired
     private ObjFactory objFactory;
 
-    @Scheduled(cron = "0 0/3 * * * ?")
+    @Scheduled(cron = Config.CRONE_WEATHER_RELOAD)
     @Override
     public void run() {
         System.out.println(DateUtil.getInstance().getDateTimeAsString(Calendar.getInstance().getTime()) + " UpdateWeatherJob executing .....");
         try {
-            WeatherDetails weatherDetails
-                    = objFactory.getAppUtil().getWeather(new GeoLocation(13.4050, 52.5200));
+            List<GeoLocation> subs = objFactory.getWeatherSubsRepository().findAll();
+            for (GeoLocation location : subs) {
+                WeatherDetails weatherDetails = objFactory.getAppUtil().getWeather(location);
 
-            System.out.println(weatherDetails.toString());
+                System.out.println("Sending to RabbitMQ ...");
+                objFactory.getRabbitTemplate().convertAndSend("amq.topic", Config.ROUNTING_KEY_BEGIN, new Gson().toJson(weatherDetails));
+            }
 
-            objFactory.getWeatherRepository().save(weatherDetails);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

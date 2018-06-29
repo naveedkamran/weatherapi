@@ -1,6 +1,7 @@
 package com.browngrid.app.domain.weather;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,17 +18,19 @@ public class WeatherDetails {
     private String name;
     private String visibility;
     private GeoLocation coord;
-    private List<Weather> weather;
+    private List weather;
     private Main main;
     private Sys sys;
+    private Wind wind;
+    private Cloud clouds;
+    private Date dateCreated;
 
     public WeatherDetails() {
-//        weather = new Weather[1];
     }
 
     @Override
     public String toString() {
-        return "WeatherDetails{" + "cod=" + cod + ", dt=" + dt + ", id=" + id + ", base=" + base + ", name=" + name + ", visibility=" + visibility + ", coord=" + coord + ", main=" + main + ", sys=" + sys + '}';
+        return "WeatherDetails{" + "cod=" + cod + ", dt=" + dt + ", id=" + id + ", base=" + base + ", name=" + name + ", visibility=" + visibility + ", coord=" + coord + ", weather=" + weather + ", main=" + main + ", sys=" + sys + ", wind=" + wind + ", clouds=" + clouds + ", dateCreated=" + dateCreated + '}';
     }
 
     /**
@@ -129,6 +132,20 @@ public class WeatherDetails {
     }
 
     /**
+     * @return the weather
+     */
+    public List getWeather() {
+        return weather;
+    }
+
+    /**
+     * @param weather the weather to set
+     */
+    public void setWeather(List weather) {
+        this.weather = weather;
+    }
+
+    /**
      * @return the main
      */
     public Main getMain() {
@@ -154,6 +171,48 @@ public class WeatherDetails {
      */
     public void setSys(Sys sys) {
         this.sys = sys;
+    }
+
+    /**
+     * @return the wind
+     */
+    public Wind getWind() {
+        return wind;
+    }
+
+    /**
+     * @param wind the wind to set
+     */
+    public void setWind(Wind wind) {
+        this.wind = wind;
+    }
+
+    /**
+     * @return the clouds
+     */
+    public Cloud getClouds() {
+        return clouds;
+    }
+
+    /**
+     * @param clouds the clouds to set
+     */
+    public void setClouds(Cloud clouds) {
+        this.clouds = clouds;
+    }
+
+    /**
+     * @return the dateCreated
+     */
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    /**
+     * @param dateCreated the dateCreated to set
+     */
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
 }

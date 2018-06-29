@@ -1,6 +1,9 @@
 package com.browngrid.app.domain.weather;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Objects;
 
 /**
  *
@@ -9,48 +12,103 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GeoLocation {
 
-    private Double longitude;
-    private Double latitude;
+    private Double lon;
+    private Double lat;
+    private String location;
 
     public GeoLocation() {
     }
 
-    public GeoLocation(Double longitude, Double latitude) {
-        this.longitude = longitude;
-        this.latitude = latitude;
+    public GeoLocation(String location) {
+        this.location = location;
+    }
+
+    public GeoLocation(Double lon, Double lat) {
+        this.lon = lon;
+        this.lat = lat;
+        this.normalize();
     }
 
     @Override
     public String toString() {
-        return "GeoLocation{" + "lon=" + getLongitude() + ", lat=" + getLatitude() + '}';
+        return "GeoLocation{" + "lon=" + getLon() + ", lat=" + getLat() + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode(this.lon);
+        hash = 59 * hash + Objects.hashCode(this.lat);
+        return hash;
+    }
+
+    public void normalize() {
+        NumberFormat formatter = new DecimalFormat("#0.00");
+        this.lon = new Double(formatter.format(this.lon));
+        this.lat = new Double(formatter.format(this.lat));
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final GeoLocation other = (GeoLocation) obj;
+        if (!Objects.equals(this.lon, other.lon)) {
+            return false;
+        }
+        if (!Objects.equals(this.lat, other.lat)) {
+            return false;
+        }
+        return true;
     }
 
     /**
-     * @return the longitude
+     * @return the lon
      */
-    public Double getLongitude() {
-        return longitude;
+    public Double getLon() {
+        return lon;
     }
 
     /**
-     * @param longitude the longitude to set
+     * @param lon the lon to set
      */
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
+    public void setLon(Double lon) {
+        this.lon = lon;
     }
 
     /**
-     * @return the latitude
+     * @return the lat
      */
-    public Double getLatitude() {
-        return latitude;
+    public Double getLat() {
+        return lat;
     }
 
     /**
-     * @param latitude the latitude to set
+     * @param lat the lat to set
      */
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    /**
+     * @return the location
+     */
+    public String getLocation() {
+        return location;
+    }
+
+    /**
+     * @param location the location to set
+     */
+    public void setLocation(String location) {
+        this.location = location;
     }
 
 }

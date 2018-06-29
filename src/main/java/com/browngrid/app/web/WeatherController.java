@@ -10,8 +10,9 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -19,19 +20,40 @@ public class WeatherController {
 
     @Autowired
     private ObjFactory objFactory;
-
-    @RequestMapping(value = "/weather", produces = {MediaType.APPLICATION_JSON_VALUE})
+ 
+    @RequestMapping(value = "/weather/{lon}/{lat}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+ 
     @ResponseBody
     public String weather(
-            @RequestParam(value = "latitude", required = true) Double latitude,
-            @RequestParam(value = "longitude", required = true) Double longitude) {
+            @PathVariable(value = "lon", required = true) Double lon,
+            @PathVariable(value = "lat", required = true) Double lat) {
         WeatherDetails weatherDetails
-                = objFactory.getAppUtil().getWeather(new GeoLocation(longitude, latitude));
+                = objFactory.getAppUtil().getWeather(new GeoLocation(lon, lat));
+
+        return new Gson().toJson(weatherDetails);
+    }
+ 
+    @RequestMapping(value = "/weather/{location}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public String weather(
+            @PathVariable(value = "location", required = true) String location) {
+        WeatherDetails weatherDetails = objFactory.getAppUtil().getWeather(location);
 
         return new Gson().toJson(weatherDetails);
     }
 
-    @RequestMapping(value = "/reload_weather", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/weather/{location}/check_condition/{condition}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public String weather(
+            @PathVariable(value = "location", required = true) String location,
+            @PathVariable(value = "condition", required = true) String condition) {
+        WeatherDetails weatherDetails = objFactory.getAppUtil().getWeather(location);
+
+        return new Gson().toJson(weatherDetails);
+    }
+
+    @RequestMapping(value = "/reload_weather", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+ 
     @ResponseBody
     public String reload_weather() {
         try {

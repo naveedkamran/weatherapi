@@ -25,17 +25,19 @@ public class ConditionsController {
     @Autowired
     private ObjFactory objFactory;
 
-    @RequestMapping(value = "/sunrise_sunset", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+
+    @RequestMapping(value = "/sunrise_sunset/{lon}/{lat}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity sunrise_sunset(
-            @RequestParam(name = "latitude", required = true) Double latitude,
-            @RequestParam(name = "longitude", required = true) Double longitude) {
-        Calendar[] sunriseSunset = SunriseSunset.getSunriseSunset(Calendar.getInstance(), latitude, longitude);
+            @RequestParam(value = "lat", required = true) Double lat,
+            @RequestParam(value = "long", required = true) Double lon) {
+
 
         System.out.println("Sunrise at: " + sunriseSunset[0].getTime());
         System.out.println("Sunset at: " + sunriseSunset[1].getTime());
 
-        return new ResponseEntity(new Gson().toJson(new SunRiseSet(latitude, longitude, sunriseSunset[0].getTime(), sunriseSunset[1].getTime())), HttpStatus.OK);
+        return new ResponseEntity(new Gson().toJson(new SunRiseSet(lat, lon, sunriseSunset[0].getTime(), sunriseSunset[1].getTime())), HttpStatus.OK);
     }
+
 
     @RequestMapping(value = "/check_condition/sun", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity check_condition_sun(
@@ -43,6 +45,7 @@ public class ConditionsController {
             @RequestParam(name = "longitude", required = true) Double longitude,
             @RequestParam(name = "conditions", required = true) String conditions) {
         Calendar[] sunriseSunset = SunriseSunset.getSunriseSunset(Calendar.getInstance(), latitude, longitude);
+
 
         if (sunriseSunset == null) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
