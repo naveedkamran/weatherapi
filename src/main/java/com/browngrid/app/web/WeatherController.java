@@ -20,8 +20,9 @@ public class WeatherController {
 
     @Autowired
     private ObjFactory objFactory;
-
+ 
     @RequestMapping(value = "/weather/{lon}/{lat}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+ 
     @ResponseBody
     public String weather(
             @PathVariable(value = "lon", required = true) Double lon,
@@ -31,7 +32,7 @@ public class WeatherController {
 
         return new Gson().toJson(weatherDetails);
     }
-
+ 
     @RequestMapping(value = "/weather/{location}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public String weather(
@@ -52,6 +53,7 @@ public class WeatherController {
     }
 
     @RequestMapping(value = "/reload_weather", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+ 
     @ResponseBody
     public String reload_weather() {
         try {
