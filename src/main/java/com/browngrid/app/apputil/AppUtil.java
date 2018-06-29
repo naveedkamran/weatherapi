@@ -31,4 +31,15 @@ public class AppUtil {
         return new SunRiseSet(longitude, latitude, sunriseSunset[0].getTime(), sunriseSunset[1].getTime());
     }
 
+    /**
+     * conditions main.temp < 20 in berlin @param
+     *
+     * weatherDetails
+     * @param conditions
+     * @return
+     */
+    public boolean checkCondition(WeatherDetails weatherDetails, String conditions) {
+
+        return true;
+    }
 }

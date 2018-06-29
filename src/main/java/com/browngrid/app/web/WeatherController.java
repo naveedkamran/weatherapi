@@ -20,7 +20,7 @@ public class WeatherController {
     @Autowired
     private ObjFactory objFactory;
 
-    @RequestMapping(name = "/weather", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/weather", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public String weather(
             @RequestParam(value = "latitude", required = true) Double latitude,
@@ -31,7 +31,7 @@ public class WeatherController {
         return new Gson().toJson(weatherDetails);
     }
 
-    @RequestMapping(name = "/reload_weather", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/reload_weather", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public String reload_weather() {
         try {

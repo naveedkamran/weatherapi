@@ -18,11 +18,20 @@ public class HelpController {
         return "<a href=\"" + baseUrl + url + "\">" + text + "</a>";
     }
 
-    public String check_condition(GeoLocation gl, String urlTitle) {
+    public String check_condition_sun(GeoLocation gl, String urlTitle) {
         StringBuilder help = new StringBuilder();
 
-        help.append("<br/>").append(getLink("/check_condition?latitude=" + gl.getLatitude() + "&longitude=" + gl.getLongitude() + "&conditions=isday", "Check if its day at " + urlTitle));
-        help.append("<br/>").append(getLink("/check_condition?latitude=" + gl.getLatitude() + "&longitude=" + gl.getLongitude() + "&conditions=isnight", "Check if its night at " + urlTitle));
+        help.append("<br/>").append(getLink("/check_condition/sun?latitude=" + gl.getLatitude() + "&longitude=" + gl.getLongitude() + "&conditions=isday", "Check if its day at " + urlTitle));
+        help.append("<br/>").append(getLink("/check_condition/sun?latitude=" + gl.getLatitude() + "&longitude=" + gl.getLongitude() + "&conditions=isnight", "Check if its night at " + urlTitle));
+
+        return help.toString();
+    }
+
+    public String check_condition_weather(GeoLocation gl, String urlTitle) {
+        StringBuilder help = new StringBuilder();
+
+        help.append("<br/>").append(getLink("/check_condition/weather?latitude=" + gl.getLatitude() + "&longitude=" + gl.getLongitude() + "&conditions=isday", "Check if its day at " + urlTitle));
+        help.append("<br/>").append(getLink("/check_condition/weather?latitude=" + gl.getLatitude() + "&longitude=" + gl.getLongitude() + "&conditions=isnight", "Check if its night at " + urlTitle));
 
         return help.toString();
     }
@@ -43,9 +52,14 @@ public class HelpController {
         GeoLocation glBerlin = new GeoLocation(52.5200, 13.4050);
 
         StringBuilder help = new StringBuilder();
-        help.append(check_condition(glIslamabad, "Islamabad"));
+        help.append(check_condition_sun(glIslamabad, "Islamabad"));
         help.append("<br/>");
-        help.append(check_condition(glBerlin, "Berlin"));
+        help.append(check_condition_sun(glBerlin, "Berlin"));
+        help.append("<br/>");
+        help.append("<br/>");
+        help.append(check_condition_weather(glIslamabad, "Islamabad"));
+        help.append("<br/>");
+        help.append(check_condition_weather(glBerlin, "Berlin"));
         help.append("<br/>");
         help.append("<br/>");
         help.append(weather(glIslamabad, "Islamabad"));
