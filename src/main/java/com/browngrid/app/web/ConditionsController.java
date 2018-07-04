@@ -1,23 +1,19 @@
 package com.browngrid.app.web;
 
-import ca.rmen.sunrisesunset.SunriseSunset;
 import com.browngrid.app.apputil.JsonUtil;
 import com.browngrid.app.apputil.ObjFactory;
-import com.browngrid.app.domain.sun.SunRiseSet;
 import com.browngrid.app.domain.weather.GeoLocation;
 import com.browngrid.app.domain.weather.WeatherDetails;
 import com.google.gson.Gson;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ConditionsController {
@@ -25,88 +21,13 @@ public class ConditionsController {
     @Autowired
     private ObjFactory objFactory;
 
-
-    @RequestMapping(value = "/sunrise_sunset/{lon}/{lat}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity sunrise_sunset(
-            @RequestParam(value = "lat", required = true) Double lat,
-            @RequestParam(value = "long", required = true) Double lon) {
-
-
-        System.out.println("Sunrise at: " + sunriseSunset[0].getTime());
-        System.out.println("Sunset at: " + sunriseSunset[1].getTime());
-
-        return new ResponseEntity(new Gson().toJson(new SunRiseSet(lat, lon, sunriseSunset[0].getTime(), sunriseSunset[1].getTime())), HttpStatus.OK);
-    }
-
-
-    @RequestMapping(value = "/check_condition/sun", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity check_condition_sun(
-            @RequestParam(name = "latitude", required = true) Double latitude,
-            @RequestParam(name = "longitude", required = true) Double longitude,
-            @RequestParam(name = "conditions", required = true) String conditions) {
-        Calendar[] sunriseSunset = SunriseSunset.getSunriseSunset(Calendar.getInstance(), latitude, longitude);
-
-
-        if (sunriseSunset == null) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-        Date sunrise = sunriseSunset[0].getTime();
-        Date sunset = sunriseSunset[1].getTime();
-
-        Date now = Calendar.getInstance().getTime();
-
-        boolean result = false;
-
-        if (conditions.equals("isday")) {
-            result = isDay(sunrise, sunset, now);
-        } else {
-            result = !isDay(sunrise, sunset, now);
-        }
-
-        return new ResponseEntity(result, HttpStatus.OK);
-    }
-
-    private boolean isDay(Date sunrise, Date sunset, Date now) {
-        if (now.before(sunset) && now.after(sunrise)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     /**
-     *
-     * @param latitude
-     * @param longitude
-     * @param conditions
-     * @return
+     * **********************************************************************
      */
-    @RequestMapping(value = "/check_condition/weather", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity check_condition_weather(
-            @RequestParam(name = "latitude", required = true) Double latitude,
-            @RequestParam(name = "longitude", required = true) Double longitude,
-            @RequestParam(name = "conditions", required = true) String conditions) {
-        return null;
-    }
-
-    @RequestMapping(value = "/check_condition/weather_city", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity check_condition_weather(
-            @RequestParam(name = "location", required = true) String location,
-            @RequestParam(name = "conditions", required = true) String conditions) {
-        WeatherDetails weatherDetails = null;
-        try {
-            //weatherDetails = objFactory.getAppUtil().getWeather(new GeoLocation(location));
-
-//            if (objFactory.getAppUtil().checkCondition(weatherDetails, conditions)) {
-            return new ResponseEntity("Executed", HttpStatus.OK);
-//            } else {
-//                return new ResponseEntity("Executed", HttpStatus.OK);
-//            }
-        } catch (Exception ex) {
-            return new ResponseEntity(ex.getMessage(), HttpStatus.NOT_FOUND);
-        }
-    }
-
+    //Test Code
+    /**
+     * **********************************************************************
+     */
     @RequestMapping(value = "/check_condition/test", method = RequestMethod.GET, produces = {MediaType.TEXT_PLAIN_VALUE})
     public String check_condition_weather() {
         WeatherDetails weatherDetails = null;
